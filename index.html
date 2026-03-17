@@ -723,12 +723,12 @@
         <div class="conditional-block" id="s2-sub" style="display:none; margin-top:16px;">
           <div class="conditional-note">📌 S2에서 '예'라고 응답하신 경우 — 해당되는 것을 모두 체크해 주세요.</div>
           <div class="options-list">
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="공복혈당높음"><span class="option-label">(당뇨는 아니지만) 공복혈당이 높다는 얘기를 들었다</span></label>
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="당화혈색소높음"><span class="option-label">(당뇨는 아니지만) 당화혈색소가 높다는 얘기를 들었다</span></label>
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="전당뇨"><span class="option-label">전당뇨 / 경계성 당뇨 진단을 받았다</span></label>
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="당뇨"><span class="option-label">당뇨 진단을 받았다</span></label>
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="인슐린저항성"><span class="option-label">인슐린 저항성이 있다는 얘기를 들었다</span></label>
-            <label class="option-item"><input type="checkbox" name="s2_sub" value="기타"><span class="option-label">기타</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="공복혈당높음" id="s2_공복혈당"><span class="option-label">(당뇨는 아니지만) 공복혈당이 높다는 얘기를 들었다</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="당화혈색소높음" id="s2_당화혈색소"><span class="option-label">(당뇨는 아니지만) 당화혈색소가 높다는 얘기를 들었다</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="전당뇨" id="s2_전당뇨"><span class="option-label">전당뇨 / 경계성 당뇨 진단을 받았다</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="당뇨" id="s2_당뇨" onchange="checkDiabetes(this)"><span class="option-label">당뇨 진단을 받았다</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="인슐린저항성" id="s2_인슐린"><span class="option-label">인슐린 저항성이 있다는 얘기를 들었다</span></label>
+            <label class="option-item"><input type="checkbox" name="s2_sub" value="기타" id="s2_기타"><span class="option-label">기타</span></label>
           </div>
         </div>
       </div>
@@ -748,7 +748,7 @@
             <span style="color:var(--primary); font-size:11px; font-weight:600;">매우 그렇다</span>
           </div>
           <div class="s4-item">
-            <div class="s4-label">① 밥·빵·면 없이 못 산다</div>
+            <div class="s4-label">① 빵·면 없이는 못 산다</div>
             <div class="s4-buttons">
               <label class="s4-btn"><input type="radio" name="s4_1" value="1"><span>1</span></label>
               <label class="s4-btn"><input type="radio" name="s4_1" value="2"><span>2</span></label>
@@ -778,7 +778,7 @@
             </div>
           </div>
           <div class="s4-item s4-gray">
-            <div class="s4-label">④ 커피는 라떼가 좋다</div>
+            <div class="s4-label">④ 커피는 라떼를 즐긴다</div>
             <div class="s4-buttons">
               <label class="s4-btn"><input type="radio" name="s4_4" value="1"><span>1</span></label>
               <label class="s4-btn"><input type="radio" name="s4_4" value="2"><span>2</span></label>
@@ -846,18 +846,28 @@
         <div class="question-label">
           <span class="q-num s-type">S4</span>
           <div>
-            <div class="question-text">탐프 챌린지 시작 전 가장 기대했던 점은? (2가지 선택)<span class="required-mark">*</span></div>
+            <div class="question-text">탐프 챌린지 시작 전 가장 기대했던 점은? 1·2순위로 골라 주세요.<span class="required-mark">*</span></div>
           </div>
         </div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="s3" value="혈당개선"><span class="option-label">혈당 개선</span></label>
-          <label class="option-item"><input type="checkbox" name="s3" value="대사지표"><span class="option-label">혈당 이외 대사 지표 개선 (혈압, 고지혈 등)</span></label>
-          <label class="option-item"><input type="checkbox" name="s3" value="체지방감소"><span class="option-label">체지방 감소</span></label>
-          <label class="option-item"><input type="checkbox" name="s3" value="생활습관"><span class="option-label">생활 습관 개선 (만성피로·수면 개선 등)</span></label>
-          <label class="option-item"><input type="checkbox" name="s3" value="위험질환"><span class="option-label">암 등 위험 질환 예방</span></label>
-          <label class="option-item"><input type="checkbox" name="s3" value="기타"><span class="option-label">기타</span></label>
+        <div style="overflow-x:auto;">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th class="item-th">보기</th>
+                <th>1순위</th>
+                <th>2순위</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="item-td">혈당 개선</td><td><input type="radio" name="s4_rank1" value="혈당개선" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="혈당개선" onchange="checkS4Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">혈당 이외 대사 지표 개선 (혈압, 고지혈 등)</td><td><input type="radio" name="s4_rank1" value="대사지표" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="대사지표" onchange="checkS4Dup()"></td></tr>
+              <tr><td class="item-td">체지방 감소</td><td><input type="radio" name="s4_rank1" value="체지방감소" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="체지방감소" onchange="checkS4Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">생활문제 개선 (만성피로·수면 등)</td><td><input type="radio" name="s4_rank1" value="생활습관" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="생활습관" onchange="checkS4Dup()"></td></tr>
+              <tr><td class="item-td">암 등 위험 질환 예방</td><td><input type="radio" name="s4_rank1" value="위험질환" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="위험질환" onchange="checkS4Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">기타</td><td><input type="radio" name="s4_rank1" value="기타" onchange="checkS4Dup()"></td><td><input type="radio" name="s4_rank2" value="기타" onchange="checkS4Dup()"></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="helper-text">최대 2가지를 선택해 주세요.</div>
       </div>
 
     <div style="text-align:center; margin:24px 0 8px;">
@@ -907,18 +917,28 @@
         <div class="question-label">
           <span class="q-num">Q2</span>
           <div>
-            <div class="question-text">탐프 효과 가운데 가장 핵심적인 요소는 무엇이라고 생각하시나요? 2가지 골라 주세요.<span class="required-mark">*</span></div>
+            <div class="question-text">탐프 효과 가운데 가장 핵심적인 요소는 무엇이라고 생각하시나요? 1·2순위로 골라 주세요.<span class="required-mark">*</span></div>
           </div>
         </div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q2" value="간헐적단식"><span class="option-label">① 간헐적 단식 (16~18시간)</span></label>
-          <label class="option-item" style="background:#F7FAFC;"><input type="checkbox" name="q2" value="정제탄수제한"><span class="option-label">② 정제탄수 식사 제한 (밥·빵·면 금지)</span></label>
-          <label class="option-item"><input type="checkbox" name="q2" value="단백질채우기"><span class="option-label">③ 하루 단백질양 채우기 (체중×2배 이상)</span></label>
-          <label class="option-item" style="background:#F7FAFC;"><input type="checkbox" name="q2" value="취침전금식"><span class="option-label">④ 취침 전 3시간 금식</span></label>
-          <label class="option-item"><input type="checkbox" name="q2" value="혈당기착용"><span class="option-label">⑤ 연속혈당기 착용 후 실시간 값 확인</span></label>
-          <label class="option-item" style="background:#F7FAFC;"><input type="checkbox" name="q2" value="함께참여"><span class="option-label">⑥ 다른 사람과 함께한 챌린지 참여 (혈당·식단 공유)</span></label>
+        <div style="overflow-x:auto;">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th class="item-th">보기</th>
+                <th>1순위</th>
+                <th>2순위</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="item-td">① 간헐적 단식 (16~18시간)</td><td><input type="radio" name="q2_rank1" value="간헐적단식" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="간헐적단식" onchange="checkQ2Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">② 정제탄수 식사 제한 (밥·빵·면 금지)</td><td><input type="radio" name="q2_rank1" value="정제탄수제한" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="정제탄수제한" onchange="checkQ2Dup()"></td></tr>
+              <tr><td class="item-td">③ 하루 단백질양 채우기 (체중×2배 이상)</td><td><input type="radio" name="q2_rank1" value="단백질채우기" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="단백질채우기" onchange="checkQ2Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">④ 취침 전 3시간 금식</td><td><input type="radio" name="q2_rank1" value="취침전금식" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="취침전금식" onchange="checkQ2Dup()"></td></tr>
+              <tr><td class="item-td">⑤ 연속혈당기 착용 후 실시간 값 확인</td><td><input type="radio" name="q2_rank1" value="혈당기착용" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="혈당기착용" onchange="checkQ2Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">⑥ 다른 사람과 함께한 챌린지 참여 (혈당·식단 공유)</td><td><input type="radio" name="q2_rank1" value="함께참여" onchange="checkQ2Dup()"></td><td><input type="radio" name="q2_rank2" value="함께참여" onchange="checkQ2Dup()"></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="helper-text">최대 2가지를 선택해 주세요.</div>
       </div>
 
       <!-- Q3 -->
@@ -951,21 +971,109 @@
 
       <!-- Q4 -->
       <div class="question-block">
+        <div class="sub-section-label">세부 항목별 수행 난이도 평가</div>
         <div class="question-label">
           <span class="q-num">Q4</span>
           <div>
-            <div class="question-text">그 중에서 가장 힘든 것을 2가지만 고른다면?<span class="required-mark">*</span></div>
+            <div class="question-text">탐프 챌린지의 세부 각각의 항목을 한달간 수행하기 어떠셨나요?<span class="required-mark">*</span></div>
+            <div class="question-note">1점 매우 수월했다 · 3점 보통 · 5점 매우 어려웠다</div>
           </div>
         </div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q4_1_hard" value="간헐적단식" onchange="checkQ4Now()"><span class="option-label">① 간헐적 단식 (16~18시간)</span></label>
-          <label class="option-item" style="background:#F7FAFC;"><input type="checkbox" name="q4_1_hard" value="정제탄수제한" onchange="checkQ4Now()"><span class="option-label">② 정제탄수 식사 제한 (밥·빵·면 금지)</span></label>
-          <label class="option-item"><input type="checkbox" name="q4_1_hard" value="단백질채우기" onchange="checkQ4Now()"><span class="option-label">③ 하루 단백질양 채우기 (체중 kg × 2배 이상)</span></label>
-          <label class="option-item" style="background:#F7FAFC;"><input type="checkbox" name="q4_1_hard" value="취침전금식" onchange="checkQ4Now()"><span class="option-label">④ 취침 전 3시간 금식</span></label>
-          <label class="option-item"><input type="checkbox" name="q4_1_hard" value="혈당기확인" onchange="checkQ4Now()"><span class="option-label">⑤ 연속혈당기 착용 후 실시간 결과 확인</span></label>
-          <label class="option-item"><input type="checkbox" name="q4_1_hard" value="함께참여" onchange="checkQ4Now()"><span class="option-label">⑥ 다른 사람과 함께한 챌린지 참여 (혈당·식단 공유)</span></label>
+        <div class="s4-button-wrap">
+          <div class="s4-scale-header">
+            <span style="color:#E53E3E; font-size:11px; font-weight:600;">매우 수월했다</span>
+            <span style="color:var(--primary); font-size:11px; font-weight:600;">매우 어려웠다</span>
+          </div>
+          <div class="s4-item">
+            <div class="s4-label">① 간헐적 단식 (16~18시간)</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_1" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_1" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_1" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_1" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_1" value="5"><span>5</span></label>
+            </div>
+          </div>
+          <div class="s4-item s4-gray">
+            <div class="s4-label">② 정제탄수 식사 제한 (밥·빵·면 금지)</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_2" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_2" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_2" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_2" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_2" value="5"><span>5</span></label>
+            </div>
+          </div>
+          <div class="s4-item">
+            <div class="s4-label">③ 하루 단백질양 채우기 (체중 kg × 2배 이상)</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_3" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_3" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_3" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_3" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_3" value="5"><span>5</span></label>
+            </div>
+          </div>
+          <div class="s4-item s4-gray">
+            <div class="s4-label">④ 취침 전 3시간 금식</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_4" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_4" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_4" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_4" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_4" value="5"><span>5</span></label>
+            </div>
+          </div>
+          <div class="s4-item">
+            <div class="s4-label">⑤ 연속혈당기 착용 후 실시간 값 확인</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_5" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_5" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_5" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_5" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_5" value="5"><span>5</span></label>
+            </div>
+          </div>
+          <div class="s4-item s4-gray">
+            <div class="s4-label">⑥ 다른 사람과 함께한 챌린지 참여 (혈당·식단 공유)</div>
+            <div class="s4-buttons">
+              <label class="s4-btn"><input type="radio" name="q4_6" value="1"><span>1</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_6" value="2"><span>2</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_6" value="3"><span>3</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_6" value="4"><span>4</span></label>
+              <label class="s4-btn"><input type="radio" name="q4_6" value="5"><span>5</span></label>
+            </div>
+          </div>
         </div>
-        <div class="helper-text">최대 2가지를 선택해 주세요.</div>
+      </div>
+
+      <!-- Q4-1 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num">Q4-1</span>
+          <div>
+            <div class="question-text">그 중에서 가장 힘든 것을 1·2순위로 골라 주세요.<span class="required-mark">*</span></div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th class="item-th">보기</th>
+                <th>1순위</th>
+                <th>2순위</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="item-td">① 간헐적 단식 (16~18시간)</td><td><input type="radio" name="q4_1_rank1" value="간헐적단식" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="간헐적단식" onchange="checkQ41Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">② 정제탄수 식사 제한 (밥·빵·면 금지)</td><td><input type="radio" name="q4_1_rank1" value="정제탄수제한" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="정제탄수제한" onchange="checkQ41Dup()"></td></tr>
+              <tr><td class="item-td">③ 하루 단백질양 채우기 (체중 kg × 2배 이상)</td><td><input type="radio" name="q4_1_rank1" value="단백질채우기" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="단백질채우기" onchange="checkQ41Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">④ 취침 전 3시간 금식</td><td><input type="radio" name="q4_1_rank1" value="취침전금식" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="취침전금식" onchange="checkQ41Dup()"></td></tr>
+              <tr><td class="item-td">⑤ 연속혈당기 착용 후 실시간 결과 확인</td><td><input type="radio" name="q4_1_rank1" value="혈당기확인" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="혈당기확인" onchange="checkQ41Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">⑥ 다른 사람과 함께한 챌린지 참여 (혈당·식단 공유)</td><td><input type="radio" name="q4_1_rank1" value="함께참여" onchange="checkQ41Dup()"></td><td><input type="radio" name="q4_1_rank2" value="함께참여" onchange="checkQ41Dup()"></td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     <div style="text-align:center; margin:24px 0 8px;">
@@ -997,7 +1105,7 @@
             <span style="color:var(--primary); font-size:11px; font-weight:600;">매우 어려웠다</span>
           </div>
           <div class="s4-item s4-gray">
-            <div class="s4-label">① 회식·모임 자리에서 식단 지키기</div>
+            <div class="s4-label">① 회식·모임에서 식단 지키기</div>
             <div class="s4-buttons">
               <label class="s4-btn"><input type="radio" name="q5_1" value="1"><span>1</span></label>
               <label class="s4-btn"><input type="radio" name="q5_1" value="2"><span>2</span></label>
@@ -1072,14 +1180,44 @@
         <div class="conditional-block" id="q5-sub" style="display:none; margin-top:16px;">
           <div class="conditional-note" style="font-size:13px; font-weight:700; color:#975A16; margin-bottom:12px;">📌 Q5-1. ② 외식 메뉴 및 식당 선택이 어렵다고 생각하신 이유는 무엇입니까? 2가지만 골라주세요.</div>
           <div class="options-list">
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="메뉴구성" onchange="checkQ5Now()"><span class="option-label">외식 메뉴가 밥·빵·면 위주라서</span></label>
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="소스설탕" onchange="checkQ5Now()"><span class="option-label">소스·양념에 설탕이 많아서</span></label>
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="단백질찾기어려움" onchange="checkQ5Now()"><span class="option-label">단백질 위주 메뉴가 부족해서</span></label>
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="식당없음" onchange="checkQ5Now()"><span class="option-label">식단에 맞는 식당 자체가 한정적이라</span></label>
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="선택권없음" onchange="checkQ5Now()"><span class="option-label">식당 선택권이 없는 경우가 많아서</span></label>
-            <label class="option-item"><input type="checkbox" name="q5_1_why" value="가격비쌈" onchange="checkQ5Now()"><span class="option-label">식단 고려 시 비용 증가</span></label>
+            <label class="option-item"><input type="checkbox" name="q5_1_why" value="메뉴구성" onchange="checkQ5Now()"><span class="option-label">① 외식 메뉴가 밥·빵·면 위주라서</span></label>
+            <label class="option-item"><input type="checkbox" name="q5_1_why" value="소스설탕" onchange="checkQ5Now()"><span class="option-label">② 소스·양념에 설탕이 많아서</span></label>
+              <label class="option-item"><input type="checkbox" name="q5_1_why" value="식당없음" onchange="checkQ5Now()"><span class="option-label">③ 식단에 맞는 식당 자체가 한정적이라</span></label>
+            <label class="option-item"><input type="checkbox" name="q5_1_why" value="선택권없음" onchange="checkQ5Now()"><span class="option-label">④ 식당 선택권이 없는 경우가 많아서</span></label>
+            <label class="option-item"><input type="checkbox" name="q5_1_why" value="가격비쌈" onchange="checkQ5Now()"><span class="option-label">⑤ 식단 고려 시 비용 증가</span></label>
             <label class="option-item"><input type="checkbox" name="q5_1_why" value="기타" onchange="checkQ5Now()"><span class="option-label">기타</span></label>
           </div>
+        </div>
+      </div>
+
+      <!-- Q5-2 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num">Q5-2</span>
+          <div>
+            <div class="question-text">일상생활에서 가장 어려웠던 점은? 순서대로 3가지 골라 주세요.<span class="required-mark">*</span></div>
+          </div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th class="item-th">보기</th>
+                <th>1순위</th>
+                <th>2순위</th>
+                <th>3순위</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="item-td">① 회식·모임에서 식단 지키기</td><td><input type="radio" name="q52_rank1" value="회식모임" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="회식모임" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="회식모임" onchange="checkQ52Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">② 외식 메뉴·식당 선택하기</td><td><input type="radio" name="q52_rank1" value="외식메뉴" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="외식메뉴" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="외식메뉴" onchange="checkQ52Dup()"></td></tr>
+              <tr><td class="item-td">③ 카페에서 단 음료·디저트 참기</td><td><input type="radio" name="q52_rank1" value="카페" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="카페" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="카페" onchange="checkQ52Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">④ 가족과 식사 메뉴·시간 조율</td><td><input type="radio" name="q52_rank1" value="가족조율" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="가족조율" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="가족조율" onchange="checkQ52Dup()"></td></tr>
+              <tr><td class="item-td">⑤ 주변의 시선과 반응</td><td><input type="radio" name="q52_rank1" value="시선반응" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="시선반응" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="시선반응" onchange="checkQ52Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">⑥ 식사 준비 시간 증가</td><td><input type="radio" name="q52_rank1" value="식사준비" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="식사준비" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="식사준비" onchange="checkQ52Dup()"></td></tr>
+              <tr><td class="item-td">⑦ 늘어난 식비</td><td><input type="radio" name="q52_rank1" value="식비" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank2" value="식비" onchange="checkQ52Dup()"></td><td><input type="radio" name="q52_rank3" value="식비" onchange="checkQ52Dup()"></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1217,14 +1355,17 @@
               </tr>
             </thead>
             <tbody>
+              <tr style="background:#E8F5E9;"><td class="item-td" colspan="3" style="font-size:11px; font-weight:700; color:#2D6A4F; padding:6px 10px;">🏃 행동 (운동·활동)</td></tr>
               <tr><td class="item-td">① 식후 15~30분 이상 걷기</td><td><input type="checkbox" name="q8_2_method" value="식후걷기" onchange="syncQ83(this, 'q8_3_식후걷기')">  </td><td><input type="checkbox" name="q8_3_best" value="식후걷기" id="q8_3_식후걷기" disabled style="opacity:0.3"></td></tr>
-              <tr style="background:#F7FAFC;"><td class="item-td">② 탄수 먹기 전에 단백질·야채 먼저 먹기</td><td><input type="checkbox" name="q8_2_method" value="단백질야채먼저" onchange="syncQ83(this, 'q8_3_단백질야채먼저')">  </td><td><input type="checkbox" name="q8_3_best" value="단백질야채먼저" id="q8_3_단백질야채먼저" disabled style="opacity:0.3"></td></tr>
-              <tr><td class="item-td">③ 식후 계단 오르기·스쿼트 등 간단한 운동</td><td><input type="checkbox" name="q8_2_method" value="간단운동" onchange="syncQ83(this, 'q8_3_간단운동')">  </td><td><input type="checkbox" name="q8_3_best" value="간단운동" id="q8_3_간단운동" disabled style="opacity:0.3"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">② 식후 계단 오르기·스쿼트 등 간단한 운동</td><td><input type="checkbox" name="q8_2_method" value="간단운동" onchange="syncQ83(this, 'q8_3_간단운동')">  </td><td><input type="checkbox" name="q8_3_best" value="간단운동" id="q8_3_간단운동" disabled style="opacity:0.3"></td></tr>
+              <tr style="background:#E8F5E9;"><td class="item-td" colspan="3" style="font-size:11px; font-weight:700; color:#2D6A4F; padding:6px 10px;">🥗 식습관</td></tr>
+              <tr><td class="item-td">③ 탄수 먹기 전에 단백질·야채 먼저 먹기</td><td><input type="checkbox" name="q8_2_method" value="단백질야채먼저" onchange="syncQ83(this, 'q8_3_단백질야채먼저')">  </td><td><input type="checkbox" name="q8_3_best" value="단백질야채먼저" id="q8_3_단백질야채먼저" disabled style="opacity:0.3"></td></tr>
               <tr style="background:#F7FAFC;"><td class="item-td">④ 지방과 함께 탄수 먹기 (빵에 올리브오일·땅콩버터 바르기 등)</td><td><input type="checkbox" name="q8_2_method" value="지방함께" onchange="syncQ83(this, 'q8_3_지방함께')">  </td><td><input type="checkbox" name="q8_3_best" value="지방함께" id="q8_3_지방함께" disabled style="opacity:0.3"></td></tr>
-              <tr><td class="item-td">⑤ 음식의 당지수 확인하고 먹기</td><td><input type="checkbox" name="q8_2_method" value="당지수확인" onchange="syncQ83(this, 'q8_3_당지수확인')">  </td><td><input type="checkbox" name="q8_3_best" value="당지수확인" id="q8_3_당지수확인" disabled style="opacity:0.3"></td></tr>
-              <tr style="background:#F7FAFC;"><td class="item-td">⑥ 복합탄수화물도 가급적 피하기</td><td><input type="checkbox" name="q8_2_method" value="탄수피하기" onchange="syncQ83(this, 'q8_3_탄수피하기')">  </td><td><input type="checkbox" name="q8_3_best" value="탄수피하기" id="q8_3_탄수피하기" disabled style="opacity:0.3"></td></tr>
-              <tr><td class="item-td">⑦ 식전에 식초·레몬즙 희석해서 마시기</td><td><input type="checkbox" name="q8_2_method" value="식초레몬" onchange="syncQ83(this, 'q8_3_식초레몬')">  </td><td><input type="checkbox" name="q8_3_best" value="식초레몬" id="q8_3_식초레몬" disabled style="opacity:0.3"></td></tr>
-              <tr style="background:#F7FAFC;"><td class="item-td">⑧ 식전에 보조제 먼저 먹기 (식이섬유·혈당 보조제 등)</td><td><input type="checkbox" name="q8_2_method" value="보조제" onchange="syncQ83(this, 'q8_3_보조제')">  </td><td><input type="checkbox" name="q8_3_best" value="보조제" id="q8_3_보조제" disabled style="opacity:0.3"></td></tr>
+              <tr><td class="item-td">⑤ 복합탄수화물도 가급적 피하기</td><td><input type="checkbox" name="q8_2_method" value="탄수피하기" onchange="syncQ83(this, 'q8_3_탄수피하기')">  </td><td><input type="checkbox" name="q8_3_best" value="탄수피하기" id="q8_3_탄수피하기" disabled style="opacity:0.3"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">⑥ 식전에 식초·레몬즙 희석해서 마시기</td><td><input type="checkbox" name="q8_2_method" value="식초레몬" onchange="syncQ83(this, 'q8_3_식초레몬')">  </td><td><input type="checkbox" name="q8_3_best" value="식초레몬" id="q8_3_식초레몬" disabled style="opacity:0.3"></td></tr>
+              <tr><td class="item-td">⑦ 식전에 보조제 먼저 먹기 (식이섬유·혈당 보조제 등)</td><td><input type="checkbox" name="q8_2_method" value="보조제" onchange="syncQ83(this, 'q8_3_보조제')">  </td><td><input type="checkbox" name="q8_3_best" value="보조제" id="q8_3_보조제" disabled style="opacity:0.3"></td></tr>
+              <tr style="background:#E8F5E9;"><td class="item-td" colspan="3" style="font-size:11px; font-weight:700; color:#2D6A4F; padding:6px 10px;">🔍 정보 찾기</td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">⑧ 먹기 전·후 다른 참여자나 AI에게 음식의 당 정보 공유 및 확인</td><td><input type="checkbox" name="q8_2_method" value="ai정보확인" onchange="syncQ83(this, 'q8_3_ai정보확인')">  </td><td><input type="checkbox" name="q8_3_best" value="ai정보확인" id="q8_3_ai정보확인" disabled style="opacity:0.3"></td></tr>
               <tr><td class="item-td">⑨ 기타</td><td><input type="checkbox" name="q8_2_method" value="기타" onchange="syncQ83(this, 'q8_3_기타')">  </td><td><input type="checkbox" name="q8_3_best" value="기타" id="q8_3_기타" disabled style="opacity:0.3"></td></tr>
             </tbody>
           </table>
@@ -1237,7 +1378,7 @@
         <div class="question-label">
           <span class="q-num">Q9</span>
           <div>
-            <div class="question-text">혈당기 착용 후 새롭게 발견한 혈당 스파이크 음식 3가지를 적어주세요.</div>
+            <div class="question-text">혈당기 착용 후 새롭게 발견한 혈당 스파이크 음식 3가지를 적어주세요.<span class="required-mark">*</span></div>
           </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
@@ -1366,18 +1507,30 @@
         <div class="question-label">
           <span class="q-num">Q10-1</span>
           <div>
-            <div class="question-text">가장 긍정적인 효과를 2가지 꼽는다면?<span class="required-mark">*</span></div>
+            <div class="question-text">가장 긍정적인 효과를 1·2·3순위로 꼽는다면?<span class="required-mark">*</span></div>
           </div>
         </div>
-        <div class="options-list">
-          <label class="option-item"><input type="checkbox" name="q11_best" value="혈당개선"><span class="option-label">혈당수치 개선</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="체지방감소"><span class="option-label">체지방 감소</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="근육량증가"><span class="option-label">근육량 증가</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="만성피로"><span class="option-label">만성피로 개선</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="수면질"><span class="option-label">수면 질 향상</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="집중력"><span class="option-label">식곤증 개선</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="피부"><span class="option-label">피부개선</span></label>
-          <label class="option-item"><input type="checkbox" name="q11_best" value="대사지표"><span class="option-label">대사지표 개선 (혈압, 고지혈증 등)</span></label>
+        <div style="overflow-x:auto;">
+          <table class="rank-table">
+            <thead>
+              <tr>
+                <th class="item-th">보기</th>
+                <th>1순위</th>
+                <th>2순위</th>
+                <th>3순위</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="item-td">혈당수치 개선</td><td><input type="radio" name="q101_rank1" value="혈당개선" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="혈당개선" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="혈당개선" onchange="checkQ101Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">체지방 감소</td><td><input type="radio" name="q101_rank1" value="체지방감소" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="체지방감소" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="체지방감소" onchange="checkQ101Dup()"></td></tr>
+              <tr><td class="item-td">근육량 증가</td><td><input type="radio" name="q101_rank1" value="근육량증가" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="근육량증가" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="근육량증가" onchange="checkQ101Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">만성피로 개선</td><td><input type="radio" name="q101_rank1" value="만성피로" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="만성피로" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="만성피로" onchange="checkQ101Dup()"></td></tr>
+              <tr><td class="item-td">수면 질 향상</td><td><input type="radio" name="q101_rank1" value="수면질" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="수면질" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="수면질" onchange="checkQ101Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">식곤증 개선</td><td><input type="radio" name="q101_rank1" value="식곤증" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="식곤증" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="식곤증" onchange="checkQ101Dup()"></td></tr>
+              <tr><td class="item-td">피부개선</td><td><input type="radio" name="q101_rank1" value="피부" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="피부" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="피부" onchange="checkQ101Dup()"></td></tr>
+              <tr style="background:#F7FAFC;"><td class="item-td">대사지표 개선 (혈압, 고지혈증 등)</td><td><input type="radio" name="q101_rank1" value="대사지표" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank2" value="대사지표" onchange="checkQ101Dup()"></td><td><input type="radio" name="q101_rank3" value="대사지표" onchange="checkQ101Dup()"></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1535,6 +1688,17 @@
             </tbody>
           </table>
         </div>
+      </div>
+
+      <!-- Q16 -->
+      <div class="question-block">
+        <div class="question-label">
+          <span class="q-num">Q16</span>
+          <div>
+            <div class="question-text">앞으로 탐프가 더 좋은 프로그램이 되기 위해 남기고 싶은 한마디가 있으시다면?</div>
+          </div>
+        </div>
+        <textarea name="q16_opinion" placeholder="자유롭게 적어 주세요..."></textarea>
       </div>
 
     <div style="text-align:center; margin:24px 0 8px;">
@@ -1698,10 +1862,6 @@
 
   <!-- Phone -->
 
-  <div class="submit-wrap" id="section-6" style="display:none;">
-    <button class="submit-btn" onclick="handleSubmit()">설문 제출하기</button>
-    <div class="thank-you-note">응답에 약 10~15분 소요됩니다.</div>
-  </div>
 
 </div>
 
@@ -1743,6 +1903,73 @@
     }
   }
 
+  function checkDiabetes(cb) {
+    const targets = ['s2_공복혈당', 's2_당화혈색소', 's2_전당뇨'];
+    targets.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (cb.checked) {
+        el.disabled = true;
+        el.checked = false;
+        el.closest('.option-item').style.opacity = '0.4';
+      } else {
+        el.disabled = false;
+        el.closest('.option-item').style.opacity = '1';
+      }
+    });
+  }
+
+  function checkQ52Dup() {
+    const r1 = document.querySelector('input[name="q52_rank1"]:checked');
+    const r2 = document.querySelector('input[name="q52_rank2"]:checked');
+    const r3 = document.querySelector('input[name="q52_rank3"]:checked');
+    const vals = [r1?.value, r2?.value, r3?.value].filter(Boolean);
+    const unique = new Set(vals);
+    if (vals.length !== unique.size) {
+      alert('같은 항목을 중복 선택하셨습니다. 서로 다른 항목을 선택해 주세요.');
+      event.target.checked = false;
+    }
+  }
+
+  function checkS4Dup() {
+    const r1 = document.querySelector('input[name="s4_rank1"]:checked');
+    const r2 = document.querySelector('input[name="s4_rank2"]:checked');
+    if (r1 && r2 && r1.value === r2.value) {
+      alert('1순위와 2순위에 같은 항목을 선택하셨습니다. 서로 다른 항목을 선택해 주세요.');
+      event.target.checked = false;
+    }
+  }
+
+  function checkQ101Dup() {
+    const r1 = document.querySelector('input[name="q101_rank1"]:checked');
+    const r2 = document.querySelector('input[name="q101_rank2"]:checked');
+    const r3 = document.querySelector('input[name="q101_rank3"]:checked');
+    const vals = [r1?.value, r2?.value, r3?.value].filter(Boolean);
+    const unique = new Set(vals);
+    if (vals.length !== unique.size) {
+      alert('같은 항목을 중복 선택하셨습니다. 서로 다른 항목을 선택해 주세요.');
+      event.target.checked = false;
+    }
+  }
+
+  function checkQ2Dup() {
+    const r1 = document.querySelector('input[name="q2_rank1"]:checked');
+    const r2 = document.querySelector('input[name="q2_rank2"]:checked');
+    if (r1 && r2 && r1.value === r2.value) {
+      alert('1순위와 2순위에 같은 항목을 선택하셨습니다. 서로 다른 항목을 선택해 주세요.');
+      event.target.checked = false;
+    }
+  }
+
+  function checkQ41Dup() {
+    const r1 = document.querySelector('input[name="q4_1_rank1"]:checked');
+    const r2 = document.querySelector('input[name="q4_1_rank2"]:checked');
+    if (r1 && r2 && r1.value === r2.value) {
+      alert('1순위와 2순위에 같은 항목을 선택하셨습니다. 서로 다른 항목을 선택해 주세요.');
+      event.target.checked = false;
+    }
+  }
+
   function checkQ12Dup() {
     const r1 = document.querySelector('input[name="q12_rank1"]:checked');
     const r2 = document.querySelector('input[name="q12_rank2"]:checked');
@@ -1778,6 +2005,7 @@
   function goNextSection(current, next) {
     const currentSection = document.getElementById('section-' + current);
 
+    try {
     // 섹션 안의 모든 라디오/체크박스 name 수집
     const allInputs = currentSection.querySelectorAll('input[type="radio"], input[type="checkbox"], input[type="text"], input[type="number"], textarea');
     const nameMap = {};
@@ -1800,9 +2028,35 @@
       if (i.name) requiredNames.add(i.name);
     });
 
-    // rank-table 라디오
+    // rank-table 라디오 — 각 rank 그룹 모두 체크
     currentSection.querySelectorAll('.rank-table input[type="radio"]').forEach(i => {
       if (i.name) requiredNames.add(i.name);
+    });
+
+    // rank-table 문항별로 모든 순위 응답 확인
+    const rankTables = currentSection.querySelectorAll('.rank-table');
+    rankTables.forEach(table => {
+      const block = table.closest('.question-block');
+      const qNum = block ? block.querySelector('.q-num') : null;
+      const qLabel = qNum ? qNum.textContent.trim() : '';
+      // rank1, rank2, rank3 name 패턴 찾기
+      const rankNames = new Set();
+      table.querySelectorAll('input[type="radio"]').forEach(i => rankNames.add(i.name));
+      rankNames.forEach(name => {
+        const checked = table.querySelector(`input[name="${name}"]:checked`);
+        if (!checked) {
+          if (block) {
+            block.scrollIntoView({behavior: 'smooth', block: 'center'});
+            block.style.border = '2px solid #E53E3E';
+            block.style.borderRadius = '12px';
+            setTimeout(() => { block.style.border = ''; block.style.borderRadius = ''; }, 3000);
+          }
+          // rank 번호 추출
+          const rankNum = name.match(/rank(\d+)/)?.[1];
+          alert(qLabel ? `[${qLabel}] 문항의 ${rankNum ? rankNum+'순위' : ''}를 선택해 주세요.` : '순위를 모두 선택해 주세요.');
+          throw new Error('stop');
+        }
+      });
     });
 
     // 일반 라디오 (option-item)
@@ -1819,11 +2073,22 @@
       if (!answered) {
         const firstEl = inputs[0];
         const block = firstEl.closest('.question-block');
+        // 문항 번호 찾기
+        const qNum = block ? (block.querySelector('.q-num') || block.querySelector('.q-num.s-type') || block.querySelector('.q-num.d-type')) : null;
+        const qLabel = qNum ? qNum.textContent.trim() : '';
         if (block) block.scrollIntoView({behavior: 'smooth', block: 'center'});
-        alert('이 섹션의 모든 필수 항목(*)에 응답해 주세요.');
+        // 문항 강조 표시
+        if (block) {
+          block.style.border = '2px solid #E53E3E';
+          block.style.borderRadius = '12px';
+          setTimeout(() => { block.style.border = ''; block.style.borderRadius = ''; }, 3000);
+        }
+        alert(qLabel ? `[${qLabel}] 문항에 응답하지 않으셨습니다. 확인해 주세요.` : '응답하지 않은 필수 항목(*)이 있습니다. 확인해 주세요.');
         return;
       }
     }
+
+    } catch(e) { return; }
 
     const nextSection = document.getElementById('section-' + next);
     if (nextSection) {
